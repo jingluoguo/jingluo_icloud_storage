@@ -19,10 +19,24 @@ class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   final _jingluoIcloudStoragePlugin = JingluoIcloudStorage();
 
+  var idx = 0;
+
   @override
   void initState() {
     super.initState();
+    startNotification();
     initPlatformState();
+  }
+
+  void startNotification() {
+    const eventChannel = EventChannel("jingluo_icloud_storage_event");
+    eventChannel.receiveBroadcastStream().listen((event) {
+      print("收到信息啦 - $event");
+      if (event["key"] == "UPDATE_ICLOUD_STORAGE") {
+        idx = event["payload"]["value"];
+        setState(() {});
+      }
+    });
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -33,6 +47,13 @@ class _MyAppState extends State<MyApp> {
     try {
       platformVersion =
           await _jingluoIcloudStoragePlugin.getPlatformVersion() ?? 'Unknown platform version';
+
+      var res = await _jingluoIcloudStoragePlugin.getValue("count");
+      setState(() {
+        if (res != null && res['msg'] != null) {
+          idx = int.parse(res["msg"].toString());
+        }
+      });
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -55,7 +76,19 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            children: [
+              Text('Running on: $_platformVersion\n'),
+              GestureDetector(
+                onTap: () async {
+                  var res = await _jingluoIcloudStoragePlugin.setValue({"key": "count", "value": idx++});
+                  print("操作后的值:$res");
+                },
+                child: const Text("累加"),
+              ),
+              Text("当前的值：$idx")
+            ],
+          ),
         ),
       ),
     );
