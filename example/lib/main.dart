@@ -81,8 +81,12 @@ class _MyAppState extends State<MyApp> {
               Text('Running on: $_platformVersion\n'),
               GestureDetector(
                 onTap: () async {
-                  var res = await _jingluoIcloudStoragePlugin.setValue({"key": "count", "value": idx++});
-                  print("操作后的值:$res");
+                  var res = await _jingluoIcloudStoragePlugin.setValue({"key": "count", "value": idx + 1});
+                  if (res?['code'] == 0) {
+                    setState(() {
+                      idx++;
+                    });
+                  }
                 },
                 child: const Text("累加"),
               ),

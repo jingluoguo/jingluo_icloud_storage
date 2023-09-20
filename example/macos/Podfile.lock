@@ -1,0 +1,22 @@
+PODS:
+  - FlutterMacOS (1.0.0)
+  - jingluo_icloud_storage (0.0.1):
+    - FlutterMacOS
+
+DEPENDENCIES:
+  - FlutterMacOS (from `Flutter/ephemeral`)
+  - jingluo_icloud_storage (from `Flutter/ephemeral/.symlinks/plugins/jingluo_icloud_storage/macos`)
+
+EXTERNAL SOURCES:
+  FlutterMacOS:
+    :path: Flutter/ephemeral
+  jingluo_icloud_storage:
+    :path: Flutter/ephemeral/.symlinks/plugins/jingluo_icloud_storage/macos
+
+SPEC CHECKSUMS:
+  FlutterMacOS: 8f6f14fa908a6fb3fba0cd85dbd81ec4b251fb24
+  jingluo_icloud_storage: f0df0979abfaf6be14f5b33ff8d5b09f2afa4436
+
+PODFILE CHECKSUM: 236401fc2c932af29a9fcf0e97baeeb2d750d367
+
+COCOAPODS: 1.12.1

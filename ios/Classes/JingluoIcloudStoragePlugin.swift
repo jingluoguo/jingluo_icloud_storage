@@ -1,4 +1,8 @@
+#if os(iOS)
 import Flutter
+#elseif os(macOS)
+import FlutterMacOS
+#endif
 import UIKit
 
 public class JingluoIcloudStoragePlugin: NSObject, FlutterPlugin {
@@ -7,7 +11,12 @@ public class JingluoIcloudStoragePlugin: NSObject, FlutterPlugin {
   
   public static func register(with registrar: FlutterPluginRegistrar) {
     // 注册method channel
-    let channel = FlutterMethodChannel(name: "jingluo_icloud_storage_method", binaryMessenger: registrar.messenger())
+#if os(iOS)
+    let messenger = registrar.messenger()
+#else
+    let messenger = registrar.messenger
+#endif
+    let channel = FlutterMethodChannel(name: "jingluo_icloud_storage_method", binaryMessenger: messenger)
     let instance = JingluoIcloudStoragePlugin()
     instance.channel = channel
     registrar.addMethodCallDelegate(instance, channel: channel)
@@ -19,7 +28,7 @@ public class JingluoIcloudStoragePlugin: NSObject, FlutterPlugin {
   public override init() {
     super.init()
   }
-
+  
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     switch call.method {
     case "getPlatformVersion":
