@@ -49,8 +49,28 @@ class UserDefaultsApi {
   
   public func getValueByIcloudStorage(arguments: Any?, result: @escaping FlutterResult) {
     if let arg = arguments as? Dictionary<String, String>, let key = arg["key"] {
+      var val:Any?
+      let type = arg["type"]
       let store = NSUbiquitousKeyValueStore.default
-      result(["code": true, "msg": store.object(forKey: key)])
+      switch type {
+        case "string":
+          val = store.string(forKey: key)
+        case "array":
+          val = store.array(forKey: key)
+        case "dictionary":
+          val = store.dictionary(forKey: key)
+        case "data":
+          val = store.data(forKey: key)
+        case "long":
+          val = store.longLong(forKey: key)
+        case "double":
+          val = store.double(forKey: key)
+        case "bool":
+          val = store.bool(forKey: key)
+        default:
+          val = store.object(forKey: key)
+      }
+      result(["code": 0, "msg": val])
     }
     
     result(CommonUtil.wrapErrResult(code: -1, msg: "参数异常"))

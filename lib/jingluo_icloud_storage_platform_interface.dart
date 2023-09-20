@@ -27,7 +27,7 @@ abstract class JingluoIcloudStoragePlatform extends PlatformInterface {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
-  Future<Map?> getValue(String key) {
+  Future<Map?> getValue(String key, String type) {
     throw UnimplementedError('getValue() has not been implemented.');
   }
 
