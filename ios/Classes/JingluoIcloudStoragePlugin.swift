@@ -39,6 +39,8 @@ public class JingluoIcloudStoragePlugin: NSObject, FlutterPlugin {
       UserDefaultsApi.shared.getValueByIcloudStorage(arguments: call.arguments, result: result)
     case "setValue":
       UserDefaultsApi.shared.setValueByIcloudStorage(arguments: call.arguments, result: result)
+    case "deleteValue":
+      UserDefaultsApi.shared.deleteValueByIcloudStorage(arguments: call.arguments, result: result)
     default:
       result(FlutterMethodNotImplemented)
     }

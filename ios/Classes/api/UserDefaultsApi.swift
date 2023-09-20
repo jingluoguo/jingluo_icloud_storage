@@ -78,7 +78,7 @@ class UserDefaultsApi {
       default:
         val = store.object(forKey: key)
       }
-      result(["code": 0, "msg": val])
+      result(CommonUtil.wrapResult(code: ErrorCode.success, payload: [key: val]))
     }
     
     result(CommonUtil.wrapErrResult(code: .invalidParameter))

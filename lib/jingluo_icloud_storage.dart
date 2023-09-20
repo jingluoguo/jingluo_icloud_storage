@@ -21,6 +21,11 @@ class JingluoIcloudStorage {
     return JingluoIcloudStoragePlatform.instance
         .setValue({"key": key, "value": value});
   }
+
+  Future<Map?> deleteValue(
+      {required String key}) {
+    return JingluoIcloudStoragePlatform.instance.deleteValue(key);
+  }
 }
 
 enum JingluoIcloudStorageType {

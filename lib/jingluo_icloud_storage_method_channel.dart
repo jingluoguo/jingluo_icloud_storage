@@ -31,4 +31,10 @@ class MethodChannelJingluoIcloudStorage extends JingluoIcloudStoragePlatform {
     final res = await methodChannel.invokeMethod('setValue', arguments);
     return res;
   }
+
+  @override
+  Future<Map?> deleteValue(String key) async {
+    final res = await methodChannel.invokeMethod('deleteValue', {"key": key});
+    return res;
+  }
 }

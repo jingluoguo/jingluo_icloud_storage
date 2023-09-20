@@ -51,10 +51,10 @@ class _MyAppState extends State<MyApp> {
       platformVersion =
           await _jingluoIcloudStoragePlugin.getPlatformVersion() ?? 'Unknown platform version';
 
-      var res = await _jingluoIcloudStoragePlugin.getValue(key: "count");
+      var res = await _jingluoIcloudStoragePlugin.getValue(key: "counts");
       setState(() {
-        if (res != null && res['code'] == 0 && res['msg'] != null) {
-          idx = int.parse(res["msg"].toString());
+        if (res != null && res['code'] == 0) {
+          idx = int.parse((res["payload"]["count"] ?? 0).toString());
         }
       });
     } on PlatformException {

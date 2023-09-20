@@ -38,4 +38,8 @@ abstract class JingluoIcloudStoragePlatform extends PlatformInterface {
   Future<Map?> setValue(Map arguments) {
     throw UnimplementedError('setValue() has not been implemented.');
   }
+
+  Future<Map?> deleteValue(String key) {
+    throw UnimplementedError('deleteValue() has not been implemented.');
+  }
 }
