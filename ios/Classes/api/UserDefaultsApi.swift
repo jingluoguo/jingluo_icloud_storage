@@ -24,6 +24,14 @@ class UserDefaultsApi {
     keyValueStore.synchronize()
   }
   
+  public func isICloudEnabled(result: @escaping FlutterResult) {
+    if let _ = FileManager.default.ubiquityIdentityToken {
+      result(CommonUtil.wrapErrResult(code: 0, msg: "iCloud is on"))
+    } else {
+      result(CommonUtil.wrapErrResult(code: -2, msg: "iCloud is not turned on"))
+    }
+  }
+  
   @objc func keyValueStoreDidChange(notification: Notification) {
     // 处理数据变化
     if let userInfo = notification.userInfo as? [String: Any],

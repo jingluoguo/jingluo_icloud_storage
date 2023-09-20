@@ -33,6 +33,8 @@ public class JingluoIcloudStoragePlugin: NSObject, FlutterPlugin {
     switch call.method {
     case "getPlatformVersion":
       result("iOS " + UIDevice.current.systemVersion)
+    case "isICloudEnabled":
+      UserDefaultsApi.shared.isICloudEnabled(result: result)
     case "getValue":
       UserDefaultsApi.shared.getValueByIcloudStorage(arguments: call.arguments, result: result)
     case "setValue":

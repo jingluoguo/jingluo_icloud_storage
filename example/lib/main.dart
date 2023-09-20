@@ -44,6 +44,9 @@ class _MyAppState extends State<MyApp> {
     String platformVersion;
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
+
+    var res = await _jingluoIcloudStoragePlugin.isICloudEnabled();
+    print('请求的结果：$res');
     try {
       platformVersion =
           await _jingluoIcloudStoragePlugin.getPlatformVersion() ?? 'Unknown platform version';

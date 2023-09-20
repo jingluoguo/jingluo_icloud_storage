@@ -10,6 +10,11 @@ class MethodChannelJingluoIcloudStorage extends JingluoIcloudStoragePlatform {
   final methodChannel = const MethodChannel('jingluo_icloud_storage_method');
 
   @override
+  Future<Map?> isICloudEnabled() async {
+    return await methodChannel.invokeMethod('isICloudEnabled');
+  }
+
+  @override
   Future<String?> getPlatformVersion() async {
     final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
     return version;

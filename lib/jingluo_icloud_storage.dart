@@ -1,6 +1,10 @@
 import 'jingluo_icloud_storage_platform_interface.dart';
 
 class JingluoIcloudStorage {
+  Future<Map?> isICloudEnabled() {
+    return JingluoIcloudStoragePlatform.instance.isICloudEnabled();
+  }
+
   Future<String?> getPlatformVersion() {
     return JingluoIcloudStoragePlatform.instance.getPlatformVersion();
   }
