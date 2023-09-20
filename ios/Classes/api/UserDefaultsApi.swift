@@ -26,9 +26,9 @@ class UserDefaultsApi {
   
   public func isICloudEnabled(result: @escaping FlutterResult) {
     if let _ = FileManager.default.ubiquityIdentityToken {
-      result(CommonUtil.wrapErrResult(code: 0, msg: "iCloud is on"))
+      result(CommonUtil.wrapErrResult(code: .success))
     } else {
-      result(CommonUtil.wrapErrResult(code: -2, msg: "iCloud is not turned on"))
+      result(CommonUtil.wrapErrResult(code: .unauthorized))
     }
   }
   
@@ -61,27 +61,27 @@ class UserDefaultsApi {
       let type = arg["type"]
       let store = NSUbiquitousKeyValueStore.default
       switch type {
-        case "string":
-          val = store.string(forKey: key)
-        case "array":
-          val = store.array(forKey: key)
-        case "dictionary":
-          val = store.dictionary(forKey: key)
-        case "data":
-          val = store.data(forKey: key)
-        case "long":
-          val = store.longLong(forKey: key)
-        case "double":
-          val = store.double(forKey: key)
-        case "bool":
-          val = store.bool(forKey: key)
-        default:
-          val = store.object(forKey: key)
+      case "string":
+        val = store.string(forKey: key)
+      case "array":
+        val = store.array(forKey: key)
+      case "dictionary":
+        val = store.dictionary(forKey: key)
+      case "data":
+        val = store.data(forKey: key)
+      case "long":
+        val = store.longLong(forKey: key)
+      case "double":
+        val = store.double(forKey: key)
+      case "bool":
+        val = store.bool(forKey: key)
+      default:
+        val = store.object(forKey: key)
       }
       result(["code": 0, "msg": val])
     }
     
-    result(CommonUtil.wrapErrResult(code: -1, msg: "参数异常"))
+    result(CommonUtil.wrapErrResult(code: .invalidParameter))
   }
   
   public func setValueByIcloudStorage(arguments: Any?, result: @escaping FlutterResult) {
@@ -89,19 +89,18 @@ class UserDefaultsApi {
       let store = NSUbiquitousKeyValueStore.default
       store.set(value, forKey: key)
       store.synchronize()
-      result(CommonUtil.wrapErrResult(code: 0))
+      result(CommonUtil.wrapErrResult(code: .success))
     }
     
-    result(CommonUtil.wrapErrResult(code: -1, msg: "参数异常"))
+    result(CommonUtil.wrapErrResult(code: .invalidParameter))
   }
   
   public func deleteValueByIcloudStorage(arguments: Any?, result: @escaping FlutterResult) {
     if let arg = arguments as? Dictionary<String, String>, let key = arg["key"] {
       let store = NSUbiquitousKeyValueStore.default
       store.removeObject(forKey: key)
-      result(CommonUtil.wrapErrResult(code: 0))
+      result(CommonUtil.wrapErrResult(code: .success))
     }
-    result(CommonUtil.wrapErrResult(code: -1, msg: "参数异常"))
+    result(CommonUtil.wrapErrResult(code: .invalidParameter))
   }
-  
 }

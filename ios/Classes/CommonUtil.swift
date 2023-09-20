@@ -8,17 +8,17 @@
 import Foundation
 
 class CommonUtil {
-  static public func wrapErrResult(code: Int32, msg: String = "") -> [String: Any] {
+  static public func wrapErrResult(code: ErrorCode) -> [String: Any] {
     var ret = [String: Any]()
-    ret["code"] = code
-    ret["msg"] = msg
+    ret["code"] = code.rawValue
+    ret["msg"] = code.description
     return ret
   }
   
-  static public func wrapResult(code: Int32, msg: String, payload: [String: Any?]) -> [String: Any] {
+  static public func wrapResult(code: ErrorCode, payload: [String: Any?]) -> [String: Any] {
     var ret = [String: Any]()
-    ret["code"] = code
-    ret["msg"] = msg
+    ret["code"] = code.rawValue
+    ret["msg"] = code.description
     ret["payload"] = payload
     return ret
   }
@@ -28,5 +28,22 @@ class CommonUtil {
     ret["key"] = key
     ret["payload"] = payload
     return ret
+  }
+}
+
+enum ErrorCode: Int {
+  case success = 0
+  case invalidParameter = -1
+  case unauthorized = -2 // iCloud未登录
+  
+  var description: String {
+    switch self {
+    case .success:
+      return "Success"
+    case .invalidParameter:
+      return "Invalid parameter"
+    case .unauthorized:
+      return "Unauthorized access"
+    }
   }
 }
