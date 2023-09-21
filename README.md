@@ -59,7 +59,7 @@ var res = await JingluoIcloudStorage().getValue(key: "localValue")
 
 ```text
 // 成功
-{msg: Success, code: 0, payload: {localValue: null}}
+{msg: 138, code: 0}
 
 // 失败
 {msg: error, code: -1}
@@ -82,7 +82,7 @@ enum JingluoIcloudStorageType {
 - 设置值
 
 ```dart
-var res = await JingluoIcloudStorage().setValue(key: "count", value: 100);
+var res = await JingluoIcloudStorage().setValue(key: "count", value: 138);
 ```
 
 ```text
@@ -107,9 +107,33 @@ var res = await JingluoIcloudStorage().deleteValue(key: "localValue")
 {msg: error, code: -1}
 ```
 
-### 3. 错误码
-| 错误码 | 意思        |
+- 监听值变化
+
+```dart
+JingluoIcloudStorage().registerEventListener(onEvent: (event) {
+  if (event["key"] == JingluoIcloudStorageEventType.updateICloudStorage) {
+    Map? map = event["payload"]["value"];
+    if (map != null && map["count"] != null) {
+      idx = map["count"];
+    }
+    setState(() {});
+  }
+});
+```
+
+```text
+// 成功
+{payload: {code: 0, value: {count: 138}}, key: UPDATE_ICLOUD_STORAGE}
+```
+
+### 3. 常量
+| 错误码 | 作用        |
 |-----|-----------|
 | 0   | 成功        |
 | -1  | 参数错误      |
 | -2  | iCloud未开启 |
+
+
+|       事件Key            ｜         作用           ｜
+|---------------------------|--------------------------|
+|   UPDATE_ICLOUD_STORAGE   |   UserDefaults刷新时触发   |

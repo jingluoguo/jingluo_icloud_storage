@@ -19,6 +19,8 @@ class _MyAppState extends State<MyApp> {
   String _platformVersion = 'Unknown';
   final _jingluoIcloudStoragePlugin = JingluoIcloudStorage();
 
+  final _key = "count";
+
   var idx = 0;
 
   @override
@@ -29,11 +31,12 @@ class _MyAppState extends State<MyApp> {
   }
 
   void startNotification() {
-    const eventChannel = EventChannel("jingluo_icloud_storage_event");
-    eventChannel.receiveBroadcastStream().listen((event) {
-      print("收到信息啦 - $event");
-      if (event["key"] == "UPDATE_ICLOUD_STORAGE") {
-        idx = event["payload"]["value"];
+    _jingluoIcloudStoragePlugin.registerEventListener(onEvent: (event) {
+      if (event["key"] == JingluoIcloudStorageEventType.updateICloudStorage) {
+        Map? map = event["payload"]["value"];
+        if (map != null && map[_key] != null) {
+          idx = map[_key];
+        }
         setState(() {});
       }
     });
@@ -46,16 +49,18 @@ class _MyAppState extends State<MyApp> {
     // We also handle the message potentially returning null.
 
     var res = await _jingluoIcloudStoragePlugin.isICloudEnabled();
-    print('请求的结果：$res');
+    if (res?['code'] != 0) {
+      return;
+    }
     try {
       platformVersion =
           await _jingluoIcloudStoragePlugin.getPlatformVersion() ??
               'Unknown platform version';
 
-      var res = await _jingluoIcloudStoragePlugin.getValue(key: "counts");
+      var res = await _jingluoIcloudStoragePlugin.getValue(key: _key);
       setState(() {
         if (res != null && res['code'] == 0) {
-          idx = int.parse((res["payload"]["count"] ?? 0).toString());
+          idx = int.parse((res["msg"] ?? 0).toString());
         }
       });
     } on PlatformException {

@@ -23,6 +23,13 @@ class JingluoIcloudStorage {
   Future<Map?> deleteValue({required String key}) {
     return JingluoIcloudStoragePlatform.instance.deleteValue(key);
   }
+
+  void registerEventListener(
+      {required void Function(dynamic) onEvent,
+      void Function(dynamic)? onError}) {
+    return JingluoIcloudStoragePlatform.instance
+        .registerEventListener(onEvent: onEvent, onError: onError);
+  }
 }
 
 enum JingluoIcloudStorageType {
@@ -34,4 +41,9 @@ enum JingluoIcloudStorageType {
   double,
   bool,
   none,
+}
+
+class JingluoIcloudStorageEventType {
+  /// Triggered after UserDefaults is modified
+  static const String updateICloudStorage = "UPDATE_ICLOUD_STORAGE";
 }

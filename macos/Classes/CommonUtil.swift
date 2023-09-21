@@ -8,10 +8,10 @@
 import Foundation
 
 class CommonUtil {
-  static public func wrapErrResult(code: ErrorCode) -> [String: Any] {
+  static public func wrapErrResult(code: ErrorCode, msg: Any? = nil) -> [String: Any] {
     var ret = [String: Any]()
     ret["code"] = code.rawValue
-    ret["msg"] = code.description
+    ret["msg"] = msg ?? code.description
     return ret
   }
   

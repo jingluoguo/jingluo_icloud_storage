@@ -9,6 +9,8 @@ class MethodChannelJingluoIcloudStorage extends JingluoIcloudStoragePlatform {
   @visibleForTesting
   final methodChannel = const MethodChannel('jingluo_icloud_storage_method');
 
+  final _eventChannel = const EventChannel('jingluo_icloud_storage_event');
+
   @override
   Future<Map?> isICloudEnabled() async {
     return await methodChannel.invokeMethod('isICloudEnabled');
@@ -38,5 +40,12 @@ class MethodChannelJingluoIcloudStorage extends JingluoIcloudStoragePlatform {
   Future<Map?> deleteValue(String key) async {
     final res = await methodChannel.invokeMethod('deleteValue', {"key": key});
     return res;
+  }
+
+  @override
+  void registerEventListener(
+      {required void Function(dynamic) onEvent,
+      void Function(dynamic)? onError}) {
+    _eventChannel.receiveBroadcastStream().listen(onEvent, onError: onError);
   }
 }

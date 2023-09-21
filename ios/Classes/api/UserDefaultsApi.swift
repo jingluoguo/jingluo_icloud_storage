@@ -45,12 +45,13 @@ class UserDefaultsApi {
           return
         }
         let store = NSUbiquitousKeyValueStore.default
+        var dic:[String:Any?] = [:]
         for key in changedKeys {
           let value = store.object(forKey: key)
-          print("修改的值: \(value ?? -1)")
-          let body = CommonUtil.eventWrapResult(key: EventKey.UpdateICloudStorage, payload: ["code": 0, "value": value])
-          EventManager.shared.emitEvent(body)
+          dic[key] = value
         }
+        let body = CommonUtil.eventWrapResult(key: EventKey.UpdateICloudStorage, payload: ["code": 0, "value": dic])
+        EventManager.shared.emitEvent(body)
       }
     }
   }
@@ -78,10 +79,10 @@ class UserDefaultsApi {
       default:
         val = store.object(forKey: key)
       }
-      result(CommonUtil.wrapResult(code: ErrorCode.success, payload: [key: val]))
+      result(CommonUtil.wrapErrResult(code: .success, msg: val))
+    } else {
+      result(CommonUtil.wrapErrResult(code: .invalidParameter))
     }
-    
-    result(CommonUtil.wrapErrResult(code: .invalidParameter))
   }
   
   public func setValueByIcloudStorage(arguments: Any?, result: @escaping FlutterResult) {
@@ -90,9 +91,9 @@ class UserDefaultsApi {
       store.set(value, forKey: key)
       store.synchronize()
       result(CommonUtil.wrapErrResult(code: .success))
+    } else {
+      result(CommonUtil.wrapErrResult(code: .invalidParameter))
     }
-    
-    result(CommonUtil.wrapErrResult(code: .invalidParameter))
   }
   
   public func deleteValueByIcloudStorage(arguments: Any?, result: @escaping FlutterResult) {
@@ -100,7 +101,8 @@ class UserDefaultsApi {
       let store = NSUbiquitousKeyValueStore.default
       store.removeObject(forKey: key)
       result(CommonUtil.wrapErrResult(code: .success))
+    } else {
+      result(CommonUtil.wrapErrResult(code: .invalidParameter))
     }
-    result(CommonUtil.wrapErrResult(code: .invalidParameter))
   }
 }

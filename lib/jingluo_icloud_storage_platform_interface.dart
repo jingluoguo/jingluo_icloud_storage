@@ -43,4 +43,11 @@ abstract class JingluoIcloudStoragePlatform extends PlatformInterface {
   Future<Map?> deleteValue(String key) {
     throw UnimplementedError('deleteValue() has not been implemented.');
   }
+
+  void registerEventListener(
+      {required void Function(dynamic) onEvent,
+      void Function(dynamic)? onError}) {
+    throw UnimplementedError(
+        'registerEventListener() has not been implemented.');
+  }
 }
