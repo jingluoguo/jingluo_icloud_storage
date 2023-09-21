@@ -133,6 +133,6 @@ JingluoIcloudStorage().registerEventListener(onEvent: (event) {
 | -1  | 参数错误      |
 | -2  | iCloud未开启 |
 
-|       事件Key            |         作用           |
-|---------------------------|--------------------------|
-|   UPDATE_ICLOUD_STORAGE   |   UserDefaults刷新时触发   |
+| 事件Key                 | 作用                |
+|-----------------------|-------------------|
+| UPDATE_ICLOUD_STORAGE | UserDefaults刷新时触发 |
