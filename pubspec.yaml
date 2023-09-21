@@ -1,6 +1,6 @@
 name: jingluo_icloud_storage
 description: Flutter plug-in for iCloud data synchronization on iOS and Mac OS
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/jingluoguo/jingluo_icloud_storage
 
 environment:
