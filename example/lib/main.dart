@@ -49,7 +49,8 @@ class _MyAppState extends State<MyApp> {
     print('请求的结果：$res');
     try {
       platformVersion =
-          await _jingluoIcloudStoragePlugin.getPlatformVersion() ?? 'Unknown platform version';
+          await _jingluoIcloudStoragePlugin.getPlatformVersion() ??
+              'Unknown platform version';
 
       var res = await _jingluoIcloudStoragePlugin.getValue(key: "counts");
       setState(() {
@@ -84,7 +85,8 @@ class _MyAppState extends State<MyApp> {
               Text('Running on: $_platformVersion\n'),
               GestureDetector(
                 onTap: () async {
-                  var res = await _jingluoIcloudStoragePlugin.setValue(key: "count", value: idx + 1);
+                  var res = await _jingluoIcloudStoragePlugin.setValue(
+                      key: "count", value: idx + 1);
                   if (res?['code'] == 0) {
                     setState(() {
                       idx++;

@@ -16,13 +16,15 @@ class MethodChannelJingluoIcloudStorage extends JingluoIcloudStoragePlatform {
 
   @override
   Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
+    final version =
+        await methodChannel.invokeMethod<String>('getPlatformVersion');
     return version;
   }
 
   @override
   Future<Map?> getValue(String key, String type) async {
-    final res = await methodChannel.invokeMethod('getValue', {"key": key, "type": type});
+    final res = await methodChannel
+        .invokeMethod('getValue', {"key": key, "type": type});
     return res;
   }
 

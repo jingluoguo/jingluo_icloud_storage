@@ -8,7 +8,8 @@ abstract class JingluoIcloudStoragePlatform extends PlatformInterface {
 
   static final Object _token = Object();
 
-  static JingluoIcloudStoragePlatform _instance = MethodChannelJingluoIcloudStorage();
+  static JingluoIcloudStoragePlatform _instance =
+      MethodChannelJingluoIcloudStorage();
 
   /// The default instance of [JingluoIcloudStoragePlatform] to use.
   ///

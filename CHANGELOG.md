@@ -1,3 +1,3 @@
 ## 0.0.1
 
-* TODO: Describe initial release.
+* TODO: 支持iCloud UserDefaults使用

@@ -15,15 +15,12 @@ class JingluoIcloudStorage {
     return JingluoIcloudStoragePlatform.instance.getValue(key, type.name);
   }
 
-  Future<Map?> setValue(
-      {required String key,
-      required dynamic value}) {
+  Future<Map?> setValue({required String key, required dynamic value}) {
     return JingluoIcloudStoragePlatform.instance
         .setValue({"key": key, "value": value});
   }
 
-  Future<Map?> deleteValue(
-      {required String key}) {
+  Future<Map?> deleteValue({required String key}) {
     return JingluoIcloudStoragePlatform.instance.deleteValue(key);
   }
 }
